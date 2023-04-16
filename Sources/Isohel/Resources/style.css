@@ -1,0 +1,60 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    font: 0.92rem Arial;
+    line-height: 1.12rem;
+}
+
+.visible {
+    visibility: visible !important;
+}
+
+#canvasContainer, #canvasMain {
+    width: 100%;
+    height: 100%;
+}
+
+#divStatistics {
+    visibility: hidden;
+    position: fixed;
+    top: 6px;
+    right: 6px;
+    padding: 6px 12px;
+    width: 188px;
+    background-color: #2A2B2C90;
+    color: white;
+}
+
+#divStatistics p {
+    margin: 0;
+}
+
+#enablePlayButtonContainer {
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    padding: 6px 0;
+    width: 100%;
+    background-color: #2A2B2C90;
+    color: white;
+}
+
+#enablePlayButtonContainer * {
+    margin: 0 6px;
+}
+
+#enablePlayButton {
+    font-weight: 600;
+    padding: 5px 0;
+    width: 200px;
+    border: none;
+    outline: none;
+    background-color: cyan;
+}
+
+#enablePlayButtonContainer.visible ~ #divStatistics {
+    top: 44px;
+}
