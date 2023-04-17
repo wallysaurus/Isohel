@@ -4,11 +4,12 @@ import NIO
 public class Canvas {
 
     public static let instance : Canvas!
+    private var registry : [CanvasObject] = []
+    private var pendingCommandList = [String]()
 
     private static let minimumSecondsBeforePing = 15
     private static var nextCanvasId : Int = 0
     private let painter : PainterProtocol
-    private var pendingCommandList = [String]()
     private var identifiedObjectDictionary = [UUID:CanvasIdentifiedObject]()
     private var mostRecentPingTime = Date()
 
@@ -30,7 +31,7 @@ public class Canvas {
 
         So yeah I decided that passing an instance of the canvas
         through an inherited function every time you'd want to
-        render somethnig to the screen was doo-doo, so instead,
+        render something to the screen was doo-doo, so instead,
         Canvas is now a singleton and every CanvasObject will 
         have a built-in render function which should just forward 
         the command string data to this class to be sent to the 
@@ -45,30 +46,8 @@ public class Canvas {
 
     */
 
-    public func render(_ canvasObjects:[CanvasObject]) {
-        for canvasObject in canvasObjects {
-            let command = canvasObject.canvasCommand()
-            pendingCommandList.append(command)
-        }
-    }
+    public static func registerObject(objects: [CanvasObject]) {
 
-    public func render(_ canvasObjects:CanvasObject...) {
-        render(canvasObjects)
-    }
-
-    public func setup(_ canvasIdentifiedObjects:[CanvasIdentifiedObject]) {
-        for canvasIdentifiedObject in canvasIdentifiedObjects {
-            identifiedObjectDictionary[canvasIdentifiedObject.id] = canvasIdentifiedObject
-            
-            let command = canvasIdentifiedObject.setupCommand()
-            pendingCommandList.append(command)
-            
-            canvasIdentifiedObject.setState(.transmissionQueued)
-        }
-    }
-
-    public func setup(_ canvasIdentifiedObjects:CanvasIdentifiedObject...) {
-        setup(canvasIdentifiedObjects)
     }
 
     public func canvasSetSize(size:Size) {
